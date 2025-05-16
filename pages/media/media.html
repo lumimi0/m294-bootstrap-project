@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aprenthek - Medienverwaltung</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="./media.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-gradient">
+  <div class="container-fluid">
+    <div class="navbar-brand fw-bold fs-2 ms-4 d-flex align-items-center nav-font-color">
+      <div class="bg-white rounded-circle me-3">
+        <img src="../../img/aprenthek-logo.png" alt="Aprenthek Logo" class="fs-4 navbar-brand-logo">
+      </div>
+      Aprenthek
+    </div>
+    <div class="navbar-nav ms-auto me-4">
+      <a class="nav-link ms-3 nav-font-color" href="../customer/customer.html">Kunden</a>
+      <a class="nav-link ms-3 nav-font-color" href="../address/address.html">Adressen</a>
+      <a class="nav-link ms-3 text-decoration-underline nav-font-color" href="../media/media.html">Medien</a>
+      <a class="nav-link ms-3 nav-font-color" href="../borrowing/borrowing.html">Ausleihen</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid p-5">
+  <h1 class="mb-4">Medienverwaltung</h1>
+
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Nach Medien suchen">
+        <button id="searchForId" class="btn btn-outline-secondary" type="button">ID</button>
+        <button id="searchForTitle" class="btn btn-outline-secondary" type="button">Titel</button>
+        <button id="searchReset" class="btn btn-outline-secondary" type="button">Zurücksetzen</button>
+      </div>
+    </div>
+    <div class="col-md-4 text-end">
+      <button class="btn btn-light border" data-bs-toggle="modal" data-bs-target="#addMediaModal">
+        + Neues Medium anlegen
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Titel</th>
+        <th>Autor</th>
+        <th>Genre</th>
+        <th>ISBN / EAN</th>
+        <th>FSK</th>
+        <th>Standortcode</th>
+        <th>Aktion</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="addMediaModal" tabindex="-1" aria-labelledby="addMediaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center w-100" id="addMediaModalLabel">Neues Medium anlegen</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="title" class="form-label">Titel <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="title" placeholder="Das Buch" required>
+            </div>
+            <div class="col-md-6">
+              <label for="author" class="form-label">Autor <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="author" placeholder="Ramon Hufschmid" required>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="isbn" class="form-label">ISBN / EAN</label>
+              <input type="text" class="form-control" id="isbn" placeholder="978-3-765-51111-4">
+            </div>
+            <div class="col-md-6">
+              <label for="genre" class="form-label">Genre</label>
+              <input type="text" class="form-control" id="genre" placeholder="Horror">
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label for="fsk" class="form-label">Altersfreigabe</label>
+              <input type="text" class="form-control" id="fsk" placeholder="16">
+            </div>
+            <div class="col-md-6">
+              <label for="shelfCode" class="form-label">Standortcode</label>
+              <input type="text" class="form-control" id="shelfCode" placeholder="12A">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-3">
+            <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Abbrechen</button>
+            <button id="addMedia" type="submit" class="btn btn-success px-4">Hinzufügen</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editMediaModal" tabindex="-1" aria-labelledby="editMediaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center w-100" id="editMediaModalLabel">Medium bearbeiten</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-8">
+              <label for="editStreet" class="form-label">Strasse</label>
+              <input type="text" class="form-control" id="editStreet" placeholder="Placeholder">
+            </div>
+            <div class="col-md-4">
+              <label for="editHouseNumber" class="form-label">Hausnummer</label>
+              <input type="text" class="form-control" id="editHouseNumber" placeholder="Placeholder">
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-8">
+              <label for="editCity" class="form-label">Ort</label>
+              <input type="text" class="form-control" id="editCity" placeholder="Placeholder">
+            </div>
+            <div class="col-md-4">
+              <label for="editPostalCode" class="form-label">PLZ</label>
+              <input type="text" class="form-control" id="editPostalCode" placeholder="Placeholder">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-3">
+            <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Abbrechen</button>
+            <button id="editMedia" type="submit" class="btn btn-success px-4">Speichern</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteMediaModal" tabindex="-1" aria-labelledby="deleteMediaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center w-100" id="deleteMediaModalLabel">Medium XYZ wirklich löschen?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="mb-4">Möchten Sie XYZ wirklich löschen?<br>
+          Diese Aktion kann nicht rückgängig gemacht werden.</p>
+
+        <div class="d-flex justify-content-center gap-3">
+          <button id="deleteMedia" type="button" class="btn btn-danger px-4">Löschen</button>
+          <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">Abbrechen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./media.js"></script>
+
+</body>
+</html>
